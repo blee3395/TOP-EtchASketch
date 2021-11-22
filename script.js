@@ -1,4 +1,6 @@
 const grid = document.querySelector('.grid');
+const container = document.querySelector('.container');
+
 
 //Get grid size
 document.querySelector('#sizeSlider').addEventListener('mouseup', resize);
@@ -13,31 +15,29 @@ function resize(e) {
     }
 
     let size = e.target.value;
-    document.querySelector('#sizeLbl').textContent = "Size "+ size;
+    document.querySelector('#sizeLbl').textContent = "Size: "+ size + 'x' + size;
 
-    for (let i = 0; i < size; i++)
+    grid.style.display = 'grid';
+    grid.style.gridTemplateColumns = 'repeat(' + size + ', 1fr)';
+
+    for (let i = 0; i < (Math.pow(size,2)); i++)
     {
-        let row = document.createElement('div');
-        row.className = 'row';
-        for (let j = 0; j < size; j++)
-        {
-            let square = document.createElement('div');
-            square.className = 'square';
-            square.addEventListener('mouseover', hover);
-            row.appendChild(square);
-        }
-        grid.appendChild(row);
+        let square = document.createElement('div');
+        square.className = 'square';
+        square.addEventListener('mouseover', hover);
+        grid.appendChild(square);
     }
-    let square = document.querySelector('.square');
-    console.log(square.style.width);
 
-    document.body.appendChild(grid);
+    document.container.appendChild(grid);
 }
 
 //Hover over and change color of div
 function hover(e) {
-    e.target.style.backgroundColor = 'rgba(255, 0, 0, 1)';
+    //Rainbow tone
+    e.target.style.backgroundColor = 'rgba(' + Math.random()*255+1 +', ' + Math.random()*255+1 + ', '+Math.random()*255+1 +')';
     
+    //Tones of red
+    // e.target.style.backgroundColor = 'rgba(' + Math.random()*255+1 +', 0 , 0)';
 }
 
 //Clear board button
